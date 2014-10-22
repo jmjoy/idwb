@@ -24,3 +24,8 @@ proguard/
 
 # Log Files
 *.log
+
+# eclipse auto create
+.settings/
+.classpath
+.project
