@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.joyproj.idwb"
+    android:versionCode="2"
+    android:versionName="2.0" >
+
+    <uses-sdk
+        android:minSdkVersion="15"
+        android:targetSdkVersion="19" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.Light.NoTitleBar" >
+
+        <!-- android:theme="@style/AppTheme" -->
+        <activity
+            android:name="com.joyproj.idwb.SplashActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.joyproj.idwb.MainActivity"></activity>
+        <activity android:name="com.joyproj.idwb.LoginActivity"></activity>
+        <activity android:name="com.joyproj.idwb.RegisterActivity"></activity>
+        <activity android:name="com.joyproj.idwb.AboutActivity"></activity>
+        <activity android:name="com.joyproj.idwb.SettingActivity"></activity>
+        <activity android:name="com.joyproj.idwb.WriteActivity"></activity>
+        <activity android:name="com.joyproj.idwb.SearchActivity"></activity>
+        <activity android:name="com.joyproj.idwb.AttentionActivity"></activity>
+        <activity android:name="com.joyproj.idwb.WeiboListActivity"></activity>
+        <activity android:name="com.joyproj.idwb.InfoActivity"></activity>
+        <activity android:name="com.joyproj.idwb.ModifyActivity"></activity>
+        <activity android:name="com.joyproj.idwb.AvatarActivity"></activity>
+        
+    </application>
+
+</manifest>

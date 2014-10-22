@@ -1,0 +1,91 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/LinearTab"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/border_top" >
+
+        <LinearLayout
+            android:id="@+id/linearHome"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/imageHome"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/home_light" />
+
+            <TextView
+                android:id="@+id/textHome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="首页"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#428bca" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearMsg"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/imageMsg"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/msg" />
+
+            <TextView
+                android:id="@+id/textMsg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="消息"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#777" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearMe"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/imageMe"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/per" />
+
+            <TextView
+                android:id="@+id/textMe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#777" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearMain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/LinearTab"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+</RelativeLayout>
