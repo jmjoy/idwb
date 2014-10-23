@@ -1,28 +1,31 @@
 package com.joyproj.idwb.adapter;
 
-import java.util.ArrayList;
+import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.joyproj.idwb.AbstractActivity;
-import com.joyproj.idwb.R;
-import com.joyproj.idwb.data.UrlData;
-import com.joyproj.idwb.data.UserData;
-import com.joyproj.idwb.helper.HttpHelper;
-import com.joyproj.idwb.util.EmotionUtil;
-import com.joyproj.idwb.util.ImageUtil;
-
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
-import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+
+import com.joyproj.idwb.AbstractActivity;
+import com.joyproj.idwb.CommentActivity;
+import com.joyproj.idwb.R;
+import com.joyproj.idwb.data.UrlData;
+import com.joyproj.idwb.data.UserData;
+import com.joyproj.idwb.helper.HttpHelper;
+import com.joyproj.idwb.util.EmotionUtil;
+import com.joyproj.idwb.util.ImageUtil;
 
 public class WeiboSimpleAdapter extends SimpleAdapter {
 
@@ -83,7 +86,12 @@ public class WeiboSimpleAdapter extends SimpleAdapter {
 		// 获取View
 		TextView textId = (TextView) view.findViewById(R.id.textId);
 		TextView textWid = (TextView) view.findViewById(R.id.textWid);
+		TextView textContent = (TextView) view.findViewById(R.id.weibo_content);
+		TextView textTime = (TextView) view.findViewById(R.id.weibo_time);
+		TextView textName = (TextView) view.findViewById(R.id.weibo_name);
 		View linearPraise = view.findViewById(R.id.linearPraise);
+		View linearComment = view.findViewById(R.id.linearComment);
+		ImageView imageAvatar = (ImageView) view.findViewById(R.id.weibo_avatar);
 		ImageView imagePraise = (ImageView) view.findViewById(R.id.imagePraise);
 		TextView textPraise = (TextView) view.findViewById(R.id.textPraise);
 		TextView textPraised = (TextView) view.findViewById(R.id.textPraised);
@@ -105,12 +113,55 @@ public class WeiboSimpleAdapter extends SimpleAdapter {
 		// 获取参数
 		String id = textId.getText().toString();
 		String wid = textWid.getText().toString();
+		String name = textName.getText().toString();
+		String time = textTime.getText().toString();
+		String content = textContent.getText().toString();
+		Drawable avatar = imageAvatar.getDrawable();
 		// 设置监听器
 		onClickPraise(linearPraise, imagePraise, textPraise, wid, position, textPraised);
+		onClickComment(linearComment, id, name, time, content, avatar);
 		//
 		return view;
 	}
 	
+	/**
+	 * 点击评论按钮的时候
+	 * @param id
+	 * @param imageAvatar
+	 * @param content
+	 * @param avatar
+	 */
+	private void onClickComment(View linearComment, final String id, final String name, final String time, final String content, final Drawable avatar) {
+		linearComment.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(act, CommentActivity.class);
+				intent.putExtra("id", id);
+				intent.putExtra("name", name);
+				intent.putExtra("time", time);
+				intent.putExtra("content", content);
+				// 把图片转化成字节数组
+				Bitmap bitmap = ((BitmapDrawable)avatar).getBitmap();
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos); 
+				byte[] b = baos.toByteArray();
+				//
+				intent.putExtra("avatar", b);
+				//
+				act.startActivity(intent);				
+			}
+		});
+	}
+
+	/**
+	 * 点击赞按钮的时候
+	 * @param linearPraise
+	 * @param imagePraise
+	 * @param textPraise
+	 * @param wid
+	 * @param position
+	 * @param textPraised
+	 */
 	private void onClickPraise(final View linearPraise, final ImageView imagePraise, final TextView textPraise, final String wid, final int position, final TextView textPraised){
 		linearPraise.setOnClickListener(new View.OnClickListener() {
 			@Override

@@ -40,6 +40,7 @@
         <activity android:name="com.joyproj.idwb.InfoActivity"></activity>
         <activity android:name="com.joyproj.idwb.ModifyActivity"></activity>
         <activity android:name="com.joyproj.idwb.AvatarActivity"></activity>
+        <activity android:name="com.joyproj.idwb.CommentActivity"></activity>
         
     </application>
 
