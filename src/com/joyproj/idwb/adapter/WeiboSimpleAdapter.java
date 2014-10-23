@@ -119,7 +119,7 @@ public class WeiboSimpleAdapter extends SimpleAdapter {
 		Drawable avatar = imageAvatar.getDrawable();
 		// …Ë÷√º‡Ã˝∆˜
 		onClickPraise(linearPraise, imagePraise, textPraise, wid, position, textPraised);
-		onClickComment(linearComment, id, name, time, content, avatar);
+		onClickComment(linearComment, id, wid, name, time, content, avatar);
 		//
 		return view;
 	}
@@ -131,12 +131,13 @@ public class WeiboSimpleAdapter extends SimpleAdapter {
 	 * @param content
 	 * @param avatar
 	 */
-	private void onClickComment(View linearComment, final String id, final String name, final String time, final String content, final Drawable avatar) {
+	private void onClickComment(View linearComment, final String id, final String wid, final String name, final String time, final String content, final Drawable avatar) {
 		linearComment.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(act, CommentActivity.class);
 				intent.putExtra("id", id);
+				intent.putExtra("wid", wid);
 				intent.putExtra("name", name);
 				intent.putExtra("time", time);
 				intent.putExtra("content", content);

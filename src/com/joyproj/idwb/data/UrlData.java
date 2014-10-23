@@ -93,4 +93,9 @@ public interface UrlData {
 	 */
 	String PRAISE = APP + "/Weibo/praise";
 	
+	/**
+	 * ·¢²¼ÆÀÂÛ
+	 */
+	String COMMENT = APP + "/Weibo/praise";
+	
 }
