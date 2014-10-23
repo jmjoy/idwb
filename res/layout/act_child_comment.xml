@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ccc"
-    android:orientation="vertical" >
+    android:background="#ccc" >
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:layout_marginBottom="55dp" >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="#ccc"
             android:orientation="vertical" >
 
@@ -164,8 +164,88 @@
                             android:background="#ccc" />
                     </LinearLayout>
                 </LinearLayout>
+
+                <com.joyproj.idwb.widget.AutoListView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|bottom"
+        android:background="#eee"
+        android:orientation="vertical"
+        android:padding="2dp" >
+
+        <HorizontalScrollView
+            android:id="@+id/scrollEmotion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" >
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:id="@+id/linearEmotions"
+                    android:layout_width="650dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <GridView
+                        android:id="@+id/gridEmotions"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:horizontalSpacing="10dp"
+                        android:numColumns="10"
+                        android:paddingBottom="10dp"
+                        android:scrollbarAlwaysDrawHorizontalTrack="true"
+                        android:scrollbarAlwaysDrawVerticalTrack="true"
+                        android:scrollbars="horizontal|vertical"
+                        android:verticalSpacing="10dp" />
+                </LinearLayout>
+            </FrameLayout>
+        </HorizontalScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true" >
+
+            <ImageButton
+                android:id="@+id/btnEmotion"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/btn_default"
+                android:onClick="onClickBtnEmotion"
+                android:src="@drawable/emotion_01" />
+
+            <EditText
+                android:id="@+id/editComment"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="6"
+                android:ems="10"
+                android:maxLength="50" >
+            </EditText>
+
+            <Button
+                android:id="@+id/btnComment"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:background="@drawable/btn_default"
+                android:text="发表" />
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

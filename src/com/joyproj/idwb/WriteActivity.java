@@ -79,7 +79,7 @@ public class WriteActivity extends AbstractPowerfulActivity implements TextWatch
 		editInput.setText(EmotionUtil.formatContent(str, this));
 		editInput.requestFocus();
 		editInput.setSelection(str.length());
-	}		
+	}
 	
 	@Override
 	public void onTextChanged(CharSequence s, int start, int before, int count) {
