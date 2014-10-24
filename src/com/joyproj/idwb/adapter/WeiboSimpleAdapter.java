@@ -150,7 +150,7 @@ public class WeiboSimpleAdapter extends SimpleAdapter {
 					bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos); 
 					byte[] b = baos.toByteArray();
 					//
-					intent.putExtra("avatar", b);					
+					intent.putExtra("avatar", b);
 				}
 				//
 				act.startActivity(intent);				

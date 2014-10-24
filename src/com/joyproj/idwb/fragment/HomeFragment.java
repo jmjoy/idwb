@@ -43,7 +43,7 @@ public class HomeFragment extends AbstractPowerfulFragment {
 				return new Object[]{fields[4], fields[1],  DateUtil.format((String) fields[2]), "*" + fields[3], fields[4], fields[5], fields[6] == null ? 0 : fields[6], fields[7] == null ? 0 : 1, fields[8] == null ? 0 : fields[8], fields[9] == null ? 0 : fields[9]};
 			} 
 		}); 
-		dataDealer.work();		
+		dataDealer.work();
 	}
 
 	@Override

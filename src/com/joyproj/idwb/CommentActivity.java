@@ -110,7 +110,7 @@ public class CommentActivity extends AbstractPowerfulActivity implements
 		dealer.setHttpDetail(UrlData.COMMENT_LIST, args, UserData.weiboListrows, new DataDealer.Own() {
 			@Override
 			public Object[] dealRes(Object[] fields) {
-				return new Object[]{fields[0], R.drawable.avatar_2, fields[2], DateUtil.format((String) fields[3]), "*" + fields[4]};
+				return new Object[]{fields[0], fields[0], fields[2], DateUtil.format((String) fields[3]), "*" + fields[4]};
 			}
 		});
 		dealer.work();
