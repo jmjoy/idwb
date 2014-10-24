@@ -133,6 +133,7 @@
                     android:src="@drawable/comment" />
 
                 <TextView
+                    android:id="@+id/textComment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
@@ -158,6 +159,7 @@
                     android:src="@drawable/forward" />
 
                 <TextView
+                    android:id="@+id/textForward"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"

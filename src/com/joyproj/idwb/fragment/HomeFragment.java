@@ -28,18 +28,22 @@ public class HomeFragment extends AbstractPowerfulFragment {
 	protected void doSthOnCreateView(View view) {
 		imageRight.setImageResource(R.drawable.pencil);
 		autolistHome = (AutoListView) view.findViewById(R.id.autolistHome);
-		
-		String[] from = {"avatar", "name", "ctime",  "content", "uid", "wid", "praise", "praised"};
-		int[] to = {R.id.weibo_avatar, R.id.weibo_name, R.id.weibo_time, R.id.weibo_content, R.id.textId, R.id.textWid, R.id.textPraise, R.id.textPraised};
+		//
+		initData();
+	}
+	
+	public void initData() {
+		String[] from = {"avatar", "name", "ctime",  "content", "uid", "wid", "praise", "praised", "comment", "forward"};
+		int[] to = {R.id.weibo_avatar, R.id.weibo_name, R.id.weibo_time, R.id.weibo_content, R.id.textId, R.id.textWid, R.id.textPraise, R.id.textPraised, R.id.textComment, R.id.textForward};
 		DataDealer dataDealer = new DataDealer((AbstractActivity) getActivity(), autolistHome, R.layout.weibo, WeiboSimpleAdapter.class, from, to);
 		dataDealer.setHttpDetail(UrlData.WEIBO_ALL, "", DataDealer.LIMIT_WEIBO, new DataDealer.Own() {
 			@Override
 			public Object[] dealRes(Object[] fields) {
 				// 其中 * 号作为微博内容的标记, 需要转换表情
-				return new Object[]{fields[4], fields[1],  DateUtil.format((String) fields[2]), "*" + fields[3], fields[4], fields[5], fields[6] == null ? 0 : fields[6], fields[7] == null ? 0 : 1};
+				return new Object[]{fields[4], fields[1],  DateUtil.format((String) fields[2]), "*" + fields[3], fields[4], fields[5], fields[6] == null ? 0 : fields[6], fields[7] == null ? 0 : 1, fields[8] == null ? 0 : fields[8], fields[9] == null ? 0 : fields[9]};
 			} 
 		}); 
-		dataDealer.work();
+		dataDealer.work();		
 	}
 
 	@Override

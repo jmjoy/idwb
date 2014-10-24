@@ -15,14 +15,20 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.joyproj.idwb.adapter.CommentSimpleAdapter;
+import com.joyproj.idwb.data.DataDealer;
 import com.joyproj.idwb.data.UrlData;
 import com.joyproj.idwb.data.UserData;
 import com.joyproj.idwb.helper.HttpHelper;
+import com.joyproj.idwb.util.DateUtil;
 import com.joyproj.idwb.util.EmotionUtil;
 import com.joyproj.idwb.util.UrlCodeUtil;
+import com.joyproj.idwb.widget.AutoListView;
 
 public class CommentActivity extends AbstractPowerfulActivity implements
 		AdapterView.OnItemClickListener {
@@ -34,6 +40,7 @@ public class CommentActivity extends AbstractPowerfulActivity implements
 	TextView textContent;
 	GridView gridEmotions;
 	EditText editComment;
+	AutoListView listComment;
 	View scrollEmotion;
 	FrameLayout frameComment;
 
@@ -67,6 +74,7 @@ public class CommentActivity extends AbstractPowerfulActivity implements
 		textContent = (TextView) findViewById(R.id.textContent);
 		editComment = (EditText) findViewById(R.id.editComment);
 		gridEmotions = (GridView) findViewById(R.id.gridEmotions);
+		listComment = (AutoListView) findViewById(R.id.listComment);
 		scrollEmotion = findViewById(R.id.scrollEmotion);
 		frameComment = (FrameLayout) findViewById(R.id.frameComment);
 		// 初始化
@@ -82,6 +90,30 @@ public class CommentActivity extends AbstractPowerfulActivity implements
 		gridEmotions.setAdapter(adapter);
 		// 监听器
 		gridEmotions.setOnItemClickListener(this);
+		//
+	}
+	
+	@Override
+	protected void onStart() {
+		super.onStart();
+		initData();
+	} 
+
+	/**
+	 * 初始化评论
+	 */
+	private void initData() {
+		String[] from = {"id", "avatar", "name", "ctime", "content"};
+		int[] to = {R.id.textId, R.id.imageAvatar, R.id.textName, R.id.textTime, R.id.textContent};
+		DataDealer dealer = new DataDealer(this, listComment, R.layout.comment, CommentSimpleAdapter.class, from, to);
+		String args = "wid=" + wid;
+		dealer.setHttpDetail(UrlData.COMMENT_LIST, args, UserData.weiboListrows, new DataDealer.Own() {
+			@Override
+			public Object[] dealRes(Object[] fields) {
+				return new Object[]{fields[0], R.drawable.avatar_2, fields[2], DateUtil.format((String) fields[3]), "*" + fields[4]};
+			}
+		});
+		dealer.work();
 	}
 
 	/**
@@ -136,7 +168,6 @@ public class CommentActivity extends AbstractPowerfulActivity implements
 		}
 		// UI : 等待
 		handler.sendEmptyMessage(UI_BLUR);
-		
 		// 联网提交
 		new Thread(){
 			@Override
@@ -144,13 +175,18 @@ public class CommentActivity extends AbstractPowerfulActivity implements
 				HttpHelper helper = new HttpHelper(UrlData.COMMENT, CommentActivity.this);
 				String args = "id=" + UserData.id + "&password=" + UserData.password + "&wid=" + wid + "&comment=" + UrlCodeUtil.encode(comment);
 				String res = helper.post(args);
-
-				System.err.println(args);
-				System.err.println(res);
-				
+				handleRes(res);
 				handler.sendEmptyMessage(UI_CLEAR);
 			};
 		}.start();
+	}
+	
+	private void handleRes(String res){
+		if("1".equals(res)){
+			handler.sendEmptyMessage(UI_OTHER);
+		}else{
+			handler.sendEmptyMessage(UI_OTHER2);
+		}
 	}
 	
 	@Override
@@ -171,7 +207,14 @@ public class CommentActivity extends AbstractPowerfulActivity implements
 
 	@Override
 	protected void uiOther() {
+		Toast.makeText(CommentActivity.this, "评论成功", Toast.LENGTH_SHORT).show();
+		editComment.setText("");
 	}	
+	
+	@Override
+	protected void uiOther2() {
+		Toast.makeText(CommentActivity.this, "评论失败", Toast.LENGTH_SHORT).show();		
+	}
 
 	/**
 	 * 控制所有的组件的enable
@@ -197,7 +240,9 @@ public class CommentActivity extends AbstractPowerfulActivity implements
 		content = intent.getStringExtra("content");
 		//
 		byte[] b = intent.getByteArrayExtra("avatar");
-		avatar = BitmapFactory.decodeByteArray(b, 0, b.length);
+		if(b != null){
+			avatar = BitmapFactory.decodeByteArray(b, 0, b.length);
+		}
 	}
 
 }

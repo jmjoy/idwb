@@ -15,6 +15,7 @@ public abstract class AbstractPowerfulActivity extends AbstractActivity {
 	protected static final int UI_BLUR = 3;
 	protected static final int UI_CLEAR = 4;
 	protected static final int UI_OTHER = 5;
+	protected static final int UI_OTHER2 = 6;
 	
 	protected TextView textBack;
 	protected TextView textTitle;
@@ -101,6 +102,10 @@ public abstract class AbstractPowerfulActivity extends AbstractActivity {
 					case UI_OTHER:
 						uiOther();
 						break;
+						
+					case UI_OTHER2:
+						uiOther2();
+						break;
 				}
 			}
 		};
@@ -129,6 +134,9 @@ public abstract class AbstractPowerfulActivity extends AbstractActivity {
 	protected abstract void uiReset();
 	
 	protected abstract void uiOther();
+	
+	protected void uiOther2(){
+	}
 	
 	protected abstract void beginOnCreateView();
 	

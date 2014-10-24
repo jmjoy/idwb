@@ -33,6 +33,7 @@ public class WeiboSimpleAdapter extends SimpleAdapter {
 	private Handler mainHandler;
 	private LayoutInflater inflater;
 	private int resource;
+	private List<? extends Map<String, ?>> data;
 	
 	private Map<Integer, Boolean> mapPraise = new HashMap<Integer, Boolean>();
 	private Map<Integer, Integer> mapPraiseNum = new HashMap<Integer, Integer>();
@@ -48,20 +49,21 @@ public class WeiboSimpleAdapter extends SimpleAdapter {
 		this.mainHandler = act.getMainHandler();
 		this.inflater = LayoutInflater.from(context);
 		this.resource = resource;
+		this.data = data;
 	}
 	
 	@Override
 	public void setViewImage(final ImageView v, final String value) {
-		super.setViewImage(v, value);
+		super.setViewImage(v, value); 
 		// 设置头像
-		if(mapAvatar.containsKey(value)){
+ 		if(mapAvatar.containsKey(value)){
 			v.setImageDrawable(mapAvatar.get(value));
 		}
 		else{
 			new Thread(){
 				@Override
 				public void run() {
-					mapAvatar.put(value, loadAvatar(v, value));					
+					mapAvatar.put(value, loadAvatar(v, value));
 				};
 			}.start();
 		}
@@ -142,12 +144,14 @@ public class WeiboSimpleAdapter extends SimpleAdapter {
 				intent.putExtra("time", time);
 				intent.putExtra("content", content);
 				// 把图片转化成字节数组
-				Bitmap bitmap = ((BitmapDrawable)avatar).getBitmap();
-				ByteArrayOutputStream baos = new ByteArrayOutputStream();
-				bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos); 
-				byte[] b = baos.toByteArray();
-				//
-				intent.putExtra("avatar", b);
+				if(avatar != null){
+					Bitmap bitmap = ((BitmapDrawable)avatar).getBitmap();
+					ByteArrayOutputStream baos = new ByteArrayOutputStream();
+					bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos); 
+					byte[] b = baos.toByteArray();
+					//
+					intent.putExtra("avatar", b);					
+				}
 				//
 				act.startActivity(intent);				
 			}

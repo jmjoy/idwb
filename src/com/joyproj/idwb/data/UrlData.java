@@ -96,6 +96,10 @@ public interface UrlData {
 	/**
 	 * 发布评论
 	 */
-	String COMMENT = APP + "/Weibo/praise";
+	String COMMENT = APP + "/Weibo/comment";
 	
+	/**
+	 * 列出评论
+	 */
+	String COMMENT_LIST = APP + "/Weibo/listComment";
 }
